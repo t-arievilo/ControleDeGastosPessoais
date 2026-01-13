@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ControleGastos.Infra")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e0db14160ad870b07f1e9fd5cb6962d84bb32d7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ControleGastos.Infra")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ControleGastos.Infra")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

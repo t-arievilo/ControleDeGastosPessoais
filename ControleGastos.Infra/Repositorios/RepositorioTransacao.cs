@@ -5,14 +5,15 @@ using System.Threading.Tasks;
 using ControleGastos.Domain.Entidades;
 using ControleGastos.Domain.Enums;
 using ControleGastos.Domain.Interfaces;
+using ControleGastos.Domain.ViewModels;
 using ControleGastos.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ControleGastos.Infra.Repositorios
 {
     public class RepositorioTransacao : RepositorioBase<Transacao>, IRepositorioTransacao
-    {
-         public RepositorioTransacao(AppDbContext context) : base(context)
+{
+    public RepositorioTransacao(AppDbContext context) : base(context)
     {
     }
     
@@ -53,10 +54,10 @@ namespace ControleGastos.Infra.Repositorios
             .SumAsync(t => t.Valor);
     }
     
-    public async Task<IEnumerable<object>> ObterTotaisPorPessoaAsync()
+    public async Task<IEnumerable<TotalPorPessoaViewModel>> ObterTotaisPorPessoaAsync()
     {
         return await _context.Pessoas
-            .Select(p => new
+            .Select(p => new TotalPorPessoaViewModel
             {
                 PessoaId = p.Id,
                 Nome = p.Nome,
@@ -68,11 +69,11 @@ namespace ControleGastos.Infra.Repositorios
                     .Where(t => t.Tipo == TipoTransacao.Despesa)
                     .Sum(t => t.Valor)
             })
-            .Select(x => new
+            .Select(x => new TotalPorPessoaViewModel
             {
-                x.PessoaId,
-                x.Nome,
-                x.Idade,
+                PessoaId = x.PessoaId,
+                Nome = x.Nome,
+                Idade = x.Idade,
                 TotalReceitas = x.TotalReceitas,
                 TotalDespesas = x.TotalDespesas,
                 Saldo = x.TotalReceitas - x.TotalDespesas
@@ -80,10 +81,10 @@ namespace ControleGastos.Infra.Repositorios
             .ToListAsync();
     }
     
-    public async Task<IEnumerable<object>> ObterTotaisPorCategoriaAsync()
+    public async Task<IEnumerable<TotalPorCategoriaViewModel>> ObterTotaisPorCategoriaAsync()
     {
         return await _context.Categorias
-            .Select(c => new
+            .Select(c => new TotalPorCategoriaViewModel
             {
                 CategoriaId = c.Id,
                 Descricao = c.Descricao,
@@ -95,11 +96,11 @@ namespace ControleGastos.Infra.Repositorios
                     .Where(t => t.Tipo == TipoTransacao.Despesa)
                     .Sum(t => t.Valor)
             })
-            .Select(x => new
+            .Select(x => new TotalPorCategoriaViewModel
             {
-                x.CategoriaId,
-                x.Descricao,
-                x.Finalidade,
+                CategoriaId = x.CategoriaId,
+                Descricao = x.Descricao,
+                Finalidade = x.Finalidade,
                 TotalReceitas = x.TotalReceitas,
                 TotalDespesas = x.TotalDespesas,
                 Saldo = x.TotalReceitas - x.TotalDespesas
